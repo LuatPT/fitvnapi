@@ -2,16 +2,12 @@ package com.api.repository;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.api.common.CommonClass.Action;
@@ -24,8 +20,6 @@ public class ExerciseRepository {
 	// hibernate tạo ra sessionFactory custom và thêm 1 số chức năng cho entityManager của JPA
 	private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	
-	@Autowired
-	private EntityManagerFactory entityManagerFactory;
 	//Nếu dùng sessionFactory thì phải tạo file hibernate.cfg.xml
 	
 	public List<Exercise> getExerciseListFromDB () {
