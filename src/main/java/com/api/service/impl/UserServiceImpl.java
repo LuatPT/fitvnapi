@@ -4,14 +4,17 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.api.entity.User;
 import com.api.model.CustomUserDetail;
 import com.api.repository.UserRepository;
 import com.api.service.UserService;
 
-public class UserServiceImpl implements UserService{
+@Service
+public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Autowired
 	private UserRepository userRepository;
@@ -31,6 +34,12 @@ public class UserServiceImpl implements UserService{
 	public UserDetails getByUserId(Long userId) {
 		User user = userRepository.findByUserId(userId);
 		return new CustomUserDetail(user);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

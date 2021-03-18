@@ -1,15 +1,15 @@
 package com.api.security.payload;
 
-import lombok.Data;
+import javax.validation.constraints.NotBlank;
 
-import com.sun.istack.NotNull;
+import lombok.Data;
 
 @Data
 public class LoginRequest {
-	@NotNull
+	@NotBlank
 	private String username;
 	
-	@NotNull
+	@NotBlank
 	private String password;
 	
 	
