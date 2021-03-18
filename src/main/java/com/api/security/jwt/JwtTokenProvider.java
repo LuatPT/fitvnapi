@@ -1,4 +1,4 @@
-package com.api.jwt;
+package com.api.security.jwt;
 
 import java.util.Date;
 

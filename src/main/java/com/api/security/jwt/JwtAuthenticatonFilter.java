@@ -1,6 +1,7 @@
-package com.api.jwt;
+package com.api.security.jwt;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -8,15 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.api.payload.LoginRequest;
-import com.api.payload.LoginResponse;
 import com.api.service.UserService;
 
-import org.springframework.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import java.lang.reflect.Field;
 
 @Slf4j
 public class JwtAuthenticatonFilter extends OncePerRequestFilter{

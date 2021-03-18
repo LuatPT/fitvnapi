@@ -1,4 +1,4 @@
-package com.api.payload;
+package com.api.security.payload;
 
 import lombok.Data;
 
