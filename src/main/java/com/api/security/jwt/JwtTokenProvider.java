@@ -31,7 +31,7 @@ public class JwtTokenProvider {
 		
 		// return a jwt string
 		return Jwts.builder()
-			.setSubject(userDetail.getUsername() )
+			.setSubject(Long.toString(userDetail.getUser().getUserId() ))
 			.setIssuedAt(now) // hieu luc ngay lap tuc
 			.setExpiration(expireDate)
 			.signWith(SignatureAlgorithm.HS512, JWT_KEY_SECRET)

@@ -25,4 +25,19 @@ public class CommonClass {
 		return rs ;
 		
 	}
+	public static String getRoleWithNumber (int number) {
+		String output = "";
+		switch (number) {
+		case 0:
+			output =  "ADMIN"; 
+			break;
+		case 1:
+			output = "USER" ;
+			break;		
+		default:
+			output = "STAFF";
+			break;
+		}
+		return output;
+	}
 }

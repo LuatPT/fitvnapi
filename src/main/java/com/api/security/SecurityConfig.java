@@ -13,13 +13,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.api.security.jwt.JwtAuthenticatonFilter;
-import com.api.service.impl.UserServiceImpl;
+import com.api.service.UserService;
 
 @EnableWebSecurity
-public class SecurityConfig  extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
-	UserServiceImpl userServiceImpl;
+	UserService userService;
 	
 	
 	@Bean
@@ -41,16 +41,18 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userServiceImpl) // Cung cáp userservice cho spring security
+		auth.userDetailsService(userService) // Cung cáp userservice cho spring security
 		.passwordEncoder(passwordEncoder());// cung cấp password encoder
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.csrf().disable() 
+		http.cors()
+		.and().csrf().disable() 
 		.authorizeRequests()
-		.antMatchers("/fitvnapi/v1/login").permitAll() 
-		.antMatchers("/fitvnapi/v1/exercises").permitAll()// everyone can access
+		.antMatchers("/v1/login").permitAll() 
+		.antMatchers("/v1/register").permitAll() 
+		.antMatchers("/v1/foods").permitAll()// everyone can access
 		.anyRequest().authenticated();
 		// Thêm một lớp Filter kiểm tra jwt
 		http.addFilterBefore(jwtAuthenticatonFilter(), UsernamePasswordAuthenticationFilter.class);

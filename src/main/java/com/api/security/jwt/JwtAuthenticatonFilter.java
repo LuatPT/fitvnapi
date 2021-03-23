@@ -1,7 +1,6 @@
 package com.api.security.jwt;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JwtAuthenticatonFilter extends OncePerRequestFilter{
+	
 	@Autowired 
 	private JwtTokenProvider tokenProvider;
 	
@@ -56,10 +56,10 @@ public class JwtAuthenticatonFilter extends OncePerRequestFilter{
 	private String getJwtFromRequest (HttpServletRequest request) throws NoSuchFieldException, SecurityException, ClassNotFoundException {
 		//Get header with Authorization
 		String bearerToken = request.getHeader("Authorization");
-		Class c = Class.forName("com.api.security..payload.LoginResponse");
-		Field tokenType = c.getDeclaredField("tokenType");
+//		Class c = Class.forName("com.api.security.payload.LoginResponse");
+//		Field tokenType = c.getDeclaredField("tokenType");
 		
-		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(tokenType.toString())) {
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
 			return bearerToken.substring(7);
 		}
 		return null;

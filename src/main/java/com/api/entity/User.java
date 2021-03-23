@@ -2,7 +2,6 @@ package com.api.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +13,6 @@ import lombok.Data;
 public class User {
 	
 	@Id
-	@GeneratedValue
 	@Column(name="user_id", unique = true)
 	private Long userId;
 	
@@ -24,5 +22,6 @@ public class User {
 	@Column(name="password",unique = true)
 	private String password;
 	
-	
+	@Column(name="role")
+	private int role;
 }

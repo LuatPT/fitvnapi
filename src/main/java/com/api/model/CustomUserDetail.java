@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.api.common.CommonClass;
 import com.api.entity.User;
 
 import lombok.AllArgsConstructor;
@@ -15,12 +16,19 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CustomUserDetail implements UserDetails{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	User user;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+		String role =  CommonClass.getRoleWithNumber(this.user.getRole());
+		return Collections.singleton(new SimpleGrantedAuthority(role));
 	}
+	
+	
 
 	@Override
 	public String getPassword() {
