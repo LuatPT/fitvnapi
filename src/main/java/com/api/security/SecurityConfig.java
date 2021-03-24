@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.api.common.LoginRole;
 import com.api.security.jwt.JwtAuthenticatonFilter;
 import com.api.service.UserService;
 
@@ -51,8 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.and().csrf().disable() 
 		.authorizeRequests()
 		.antMatchers("/v1/login").permitAll() 
-		.antMatchers("/v1/register").permitAll() 
+		.antMatchers("/v1/register").permitAll()
 		.antMatchers("/v1/foods").permitAll()// everyone can access
+		.antMatchers("/v1/exercises").hasAuthority(LoginRole.USER.getAuthority())
 		.anyRequest().authenticated();
 		// Thêm một lớp Filter kiểm tra jwt
 		http.addFilterBefore(jwtAuthenticatonFilter(), UsernamePasswordAuthenticationFilter.class);

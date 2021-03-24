@@ -35,7 +35,7 @@ public class UserRepository {
 	
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		
-		String sql = "Select * from User u where u.userId = :uId";
+		String sql = "Select u from User u where u.userId = :uId";
 		Query query = entityManager.createQuery(sql);
 		query.setParameter("uId", userId);
 		
