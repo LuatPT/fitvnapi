@@ -4,9 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 public enum LoginRole implements GrantedAuthority {
 
-    ADMIN("ADMIN", 0),
-    USER("USER", 1),
-    STAFF("STAFF", 2);
+    ADMIN("ROLE_ADMIN", 0),
+    USER("ROLE_USER", 1),
+    STAFF("ROLE_STAFF", 2);
 
     private final String name;
     private final int key;
