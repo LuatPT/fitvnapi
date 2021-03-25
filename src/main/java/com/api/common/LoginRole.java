@@ -20,4 +20,12 @@ public enum LoginRole implements GrantedAuthority {
     public String getAuthority() {
         return name;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public int getKey() {
+		return key;
+	}
 }

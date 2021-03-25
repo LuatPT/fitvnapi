@@ -25,7 +25,7 @@ import com.api.service.UserService;
 @RestController
 @RequestMapping(value="/v1")
 public class LoginController {
-
+	
 	@Autowired
 	AuthenticationManager authenticationManager;
 	
@@ -48,6 +48,7 @@ public class LoginController {
 		//create response and put jwt 
 		return new LoginResponse(jwt);
 	}
+	
 	@PostMapping( "/register")
 	public void registerUser(@Valid @RequestBody User user) {
 		String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());

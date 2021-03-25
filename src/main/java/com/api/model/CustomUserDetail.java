@@ -27,8 +27,6 @@ public class CustomUserDetail implements UserDetails{
 		String role =  CommonClass.getRoleWithNumber(this.user.getRole());
 		return Collections.singleton(new SimpleGrantedAuthority(role));
 	}
-	
-	
 
 	@Override
 	public String getPassword() {
