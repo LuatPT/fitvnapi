@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.common.CommonClass;
-import com.api.common.LoginRole;
 import com.api.entity.Food;
 import com.api.model.Result;
 import com.api.model.ResultList;
