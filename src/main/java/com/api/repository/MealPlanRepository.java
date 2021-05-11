@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.common.CommonClass.Action;
 import com.api.entity.MealPlan;
+import com.api.model.RstMealPlanListDto;
 
 @Repository
 @Transactional
@@ -21,12 +22,12 @@ public class MealPlanRepository {
 	private EntityManagerFactory entityManagerFactory;
 
 	@SuppressWarnings("unchecked")
-	public List<MealPlan> getMealPlanListFromDB () {
+	public List<RstMealPlanListDto> getMealPlanListFromDB () {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String sql = "Select m from MealPlan m";
+		String sql = "Select m.mealPlanId, m.userId, f.foodName, f.foodCalo, m.amount from MealPlan m inner join Food f on m.foodId = f.foodId";
 		//Create query 
 		Query query = entityManager.createQuery(sql);
-		List<MealPlan> list = query.getResultList();
+		List<RstMealPlanListDto> list = query.getResultList();
 		return list;
 	}
 	

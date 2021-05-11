@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.common.CommonClass.Action;
 import com.api.entity.MealPlan;
+import com.api.model.RstMealPlanListDto;
 import com.api.repository.MealPlanRepository;
 import com.api.service.MealPlanService;
 
@@ -21,7 +22,7 @@ public class MealPlanServiceImpl implements MealPlanService{
 	}
 
 	@Override
-	public List<MealPlan> getMealPlanList() {
+	public List<RstMealPlanListDto> getMealPlanList() {
 		return mealPlanRepository.getMealPlanListFromDB();
 	}
 
