@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class MealPlan {
 	@Id
 	@Column(name="mealplan_id")
-	private int mealPlanId;
+	private String mealPlanId;
 	
 	@Column(name="user_id")
 	private String userId;

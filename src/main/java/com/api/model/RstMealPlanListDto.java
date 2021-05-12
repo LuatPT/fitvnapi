@@ -1,7 +1,5 @@
 package com.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -9,15 +7,24 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class RstMealPlanListDto {
-	private int mealPlanId;
+	private String mealPlanId;
 	
 	private String userId;
 	
+	private String foodId;	
+
+	private String amount;
+	
 	private String foodName;
 	
-	private String foodCalo;
+	private String foodImg;
 	
-	private String amount;
+	private String foodCalo;
+
+	private String foodServing;
+	
+	private String foodType;
+	
+	private String foodContent;
 }

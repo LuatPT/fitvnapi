@@ -28,7 +28,7 @@ public class Food implements Serializable{
 
 	@Id
 	@Column(name="food_id")
-	private int foodId;
+	private String foodId;
 	
 	@Column(name="food_name")
 	private String foodName;

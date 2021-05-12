@@ -24,7 +24,7 @@ public class MealPlanRepository {
 	@SuppressWarnings("unchecked")
 	public List<RstMealPlanListDto> getMealPlanListFromDB () {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String sql = "Select m.mealPlanId, m.userId, f.foodName, f.foodCalo, m.amount from MealPlan m inner join Food f on m.foodId = f.foodId";
+		String sql = "SELECT new com.api.model.RstMealPlanListDto(m.mealPlanId, m.userId, m.foodId, m.amount, f.foodName, f.foodImg, f.foodServing, f.foodCalo, f.foodType, f.foodContent) FROM MealPlan m INNER JOIN Food f ON m.foodId = f.foodId";
 		//Create query 
 		Query query = entityManager.createQuery(sql);
 		List<RstMealPlanListDto> list = query.getResultList();
