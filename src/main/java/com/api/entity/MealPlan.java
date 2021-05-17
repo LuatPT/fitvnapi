@@ -20,13 +20,13 @@ import lombok.RequiredArgsConstructor;
 public class MealPlan {
 	@Id
 	@Column(name="mealplan_id")
-	private String mealPlanId;
+	private int mealPlanId;
 	
-	@Column(name="user_id")
-	private String userId;
+	@Column(name="user_name")
+	private String userName;
 	
 	@Column(name="food_id")
-	private String foodId;
+	private int foodId;
 	
 	@Column(name="amount")
 	private String amount;

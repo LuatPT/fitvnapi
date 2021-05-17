@@ -8,11 +8,12 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class RstMealPlanListDto {
-	private String mealPlanId;
 	
-	private String userId;
+	private int mealPlanId;
 	
-	private String foodId;	
+	private String userName;
+	
+	private int foodId;	
 
 	private String amount;
 	

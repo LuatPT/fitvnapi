@@ -24,7 +24,7 @@ public class MealPlanRepository {
 	@SuppressWarnings("unchecked")
 	public List<RstMealPlanListDto> getMealPlanListFromDB () {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String sql = "SELECT new com.api.model.RstMealPlanListDto(m.mealPlanId, m.userId, m.foodId, m.amount, f.foodName, f.foodImg, f.foodServing, f.foodCalo, f.foodType, f.foodContent) FROM MealPlan m INNER JOIN Food f ON m.foodId = f.foodId";
+		String sql = "SELECT new com.api.model.RstMealPlanListDto(m.mealPlanId, m.userName, m.foodId, m.amount, f.foodName, f.foodImg, f.foodServing, f.foodCalo, f.foodType, f.foodContent) FROM MealPlan m INNER JOIN Food f ON m.foodId = f.foodId";
 		//Create query 
 		Query query = entityManager.createQuery(sql);
 		List<RstMealPlanListDto> list = query.getResultList();
@@ -36,12 +36,14 @@ public class MealPlanRepository {
 		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			tx.begin();
-			String sql = "Insert into mealplan(mealplan_id, user_id, food_id, amount) values(?, ?, ?, ?)";
+			String sql = "Insert into mealplan(mealplan_id, user_name, food_id, amount) values(?, ?, ?, ?)";
+			//Check current max id 
+			int id = getMaxId() + 1;
 			//Check update or add
 			if (e == Action.ADD) {
 				Query  query = entityManager.createNativeQuery(sql)
-						.setParameter(1, meal.getMealPlanId())
-						.setParameter(2, meal.getUserId())
+						.setParameter(1, id)
+						.setParameter(2, meal.getUserName())
 						.setParameter(3, meal.getFoodId())
 						.setParameter(4, meal.getAmount());
 				query.executeUpdate();
@@ -85,5 +87,12 @@ public class MealPlanRepository {
 		query.setParameter("mId", mealPlanId);
 		MealPlan mealPlan = (MealPlan) query.getSingleResult(); 
 		return mealPlan;
+	}
+	public int getMaxId() {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		String sql = "SELECT MAX(m.mealPlanId) FROM MealPlan m";
+		Query query = entityManager.createQuery(sql);
+		int maxId =  (int) query.getSingleResult(); 
+		return maxId;
 	}
 }
