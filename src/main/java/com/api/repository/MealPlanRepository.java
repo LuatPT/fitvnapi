@@ -22,11 +22,12 @@ public class MealPlanRepository {
 	private EntityManagerFactory entityManagerFactory;
 
 	@SuppressWarnings("unchecked")
-	public List<RstMealPlanListDto> getMealPlanListFromDB () {
+	public List<RstMealPlanListDto> getMealPlanListFromDB (String userName) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String sql = "SELECT new com.api.model.RstMealPlanListDto(m.mealPlanId, m.userName, m.foodId, m.amount, f.foodName, f.foodImg, f.foodServing, f.foodCalo, f.foodType, f.foodContent) FROM MealPlan m INNER JOIN Food f ON m.foodId = f.foodId";
+		String sql = "SELECT new com.api.model.RstMealPlanListDto(m.mealPlanId, m.userName, m.foodId, m.amount, f.foodName, f.foodImg, f.foodServing, f.foodCalo, f.foodType, f.foodContent) FROM MealPlan m INNER JOIN Food f ON m.foodId = f.foodId WHERE m.userName = :mUName";
 		//Create query 
 		Query query = entityManager.createQuery(sql);
+		query.setParameter("mUName", userName);
 		List<RstMealPlanListDto> list = query.getResultList();
 		return list;
 	}

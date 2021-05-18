@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/v1/login").permitAll() 
 		.antMatchers("/v1/register").permitAll()
 		.antMatchers("/v1/foods/**").permitAll()// everyone can access
+		.antMatchers("/v1/getMealPlans/**").permitAll()
 		.antMatchers("/v1/mealPlans/**").permitAll()// everyone can access
 		.antMatchers("/v1/exercisePlans/**").permitAll()// everyone can access
 //		.antMatchers("/v1/exercises").hasAuthority(LoginRole.USER.getAuthority())

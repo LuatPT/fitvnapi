@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.common.CommonClass;
 import com.api.entity.MealPlan;
+import com.api.model.DxoGetMealDto;
 import com.api.model.Result;
 import com.api.model.ResultList;
 import com.api.service.MealPlanService;
@@ -26,9 +28,9 @@ public class MealPlanController {
 			this.mealPlanService = mealPlanService;
 		}
 
-		@RequestMapping(method = RequestMethod.GET, value = "/mealPlans")
-		public ResultList index () {
-			return CommonClass.createResultList(mealPlanService.getMealPlanList());
+		@RequestMapping(method = RequestMethod.POST, value = "/getMealPlans")
+		public ResultList index (@RequestBody DxoGetMealDto requestGetMeal) {
+			return CommonClass.createResultList(mealPlanService.getMealPlanList(requestGetMeal.getUserName()));
 		}
 		
 		@RequestMapping(method=RequestMethod.GET, value = "/mealPlans/{mealPlan_id}")
