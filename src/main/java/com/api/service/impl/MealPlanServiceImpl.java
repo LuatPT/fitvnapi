@@ -22,8 +22,8 @@ public class MealPlanServiceImpl implements MealPlanService{
 	}
 
 	@Override
-	public List<RstMealPlanListDto> getMealPlanList(String userName) {
-		return mealPlanRepository.getMealPlanListFromDB(userName);
+	public List<RstMealPlanListDto> getMealPlanList(String userName, String mealPlanDate) {
+		return mealPlanRepository.getMealPlanListFromDB(userName, mealPlanDate);
 	}
 
 	@Override

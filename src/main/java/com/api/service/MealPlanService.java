@@ -6,7 +6,7 @@ import com.api.entity.MealPlan;
 import com.api.model.RstMealPlanListDto;
 
 public interface MealPlanService {
-	public List <RstMealPlanListDto> getMealPlanList (String userName) ;
+	public List <RstMealPlanListDto> getMealPlanList (String userName, String mealPlanDate) ;
 	public void inserMealPlan(MealPlan meal);
 	public void deleteMealPlan (int mealPlanId) ;
 	public void updateMealPlan (MealPlan meal) ;

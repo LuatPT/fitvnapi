@@ -22,12 +22,13 @@ public class MealPlanRepository {
 	private EntityManagerFactory entityManagerFactory;
 
 	@SuppressWarnings("unchecked")
-	public List<RstMealPlanListDto> getMealPlanListFromDB (String userName) {
+	public List<RstMealPlanListDto> getMealPlanListFromDB (String userName, String mealPlanDate) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String sql = "SELECT new com.api.model.RstMealPlanListDto(m.mealPlanId, m.userName, m.foodId, m.amount, f.foodName, f.foodImg, f.foodServing, f.foodCalo, f.foodType, f.foodContent) FROM MealPlan m INNER JOIN Food f ON m.foodId = f.foodId WHERE m.userName = :mUName";
+		String sql = "SELECT new com.api.model.RstMealPlanListDto(m.mealPlanId, m.userName, m.foodId, m.amount, f.foodName, f.foodImg, f.foodServing, f.foodCalo, f.foodType, f.foodContent, f.protein, f.carb, f.fat) FROM MealPlan m INNER JOIN Food f ON m.foodId = f.foodId WHERE m.userName = :mUName AND m.mealPlanDate = :mDate";
 		//Create query 
 		Query query = entityManager.createQuery(sql);
 		query.setParameter("mUName", userName);
+		query.setParameter("mDate", mealPlanDate);
 		List<RstMealPlanListDto> list = query.getResultList();
 		return list;
 	}
@@ -37,7 +38,7 @@ public class MealPlanRepository {
 		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			tx.begin();
-			String sql = "Insert into mealplan(mealplan_id, user_name, food_id, amount) values(?, ?, ?, ?)";
+			String sql = "Insert into mealplan(mealplan_id, user_name, food_id, amount, mealplan_date) values(?, ?, ?, ?, ?)";
 			//Check current max id 
 			int id = getMaxId() + 1;
 			//Check update or add
@@ -46,7 +47,8 @@ public class MealPlanRepository {
 						.setParameter(1, id)
 						.setParameter(2, meal.getUserName())
 						.setParameter(3, meal.getFoodId())
-						.setParameter(4, meal.getAmount());
+						.setParameter(4, meal.getAmount())
+						.setParameter(5, meal.getMealPlanDate());
 				query.executeUpdate();
 				tx.commit();
 			}else {

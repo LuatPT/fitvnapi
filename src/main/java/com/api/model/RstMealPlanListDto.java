@@ -15,17 +15,23 @@ public class RstMealPlanListDto {
 	
 	private int foodId;	
 
-	private String amount;
+	private int amount;
 	
 	private String foodName;
 	
 	private String foodImg;
 	
-	private String foodCalo;
+	private int foodCalo;
 
-	private String foodServing;
+	private int foodServing;
 	
 	private String foodType;
 	
 	private String foodContent;
+	
+	private int protein;
+	
+	private int carb;
+	
+	private int fat;
 }

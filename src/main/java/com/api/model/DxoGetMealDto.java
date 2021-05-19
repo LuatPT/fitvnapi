@@ -9,4 +9,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DxoGetMealDto {
 	private String userName;
+	private String mealPlanDate;
 }

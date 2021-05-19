@@ -37,10 +37,10 @@ public class Food implements Serializable{
 	private String foodImg;
 	
 	@Column(name="food_calo")
-	private String foodCalo;
+	private int foodCalo;
 	
 	@Column(name="food_serving")
-	private String foodServing;
+	private int foodServing;
 	
 	@Column(name="food_type")
 	private String foodType;
@@ -48,4 +48,12 @@ public class Food implements Serializable{
 	@Column(name="food_content")
 	private String foodContent;
 	
+	@Column(name="protein")
+	private int protein;
+	
+	@Column(name="carb")
+	private int carb;
+	
+	@Column(name="fat")
+	private int fat;
 }

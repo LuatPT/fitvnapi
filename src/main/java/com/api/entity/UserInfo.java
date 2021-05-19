@@ -12,25 +12,22 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table(name="mealplan")
+@Table(name="user_info")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class MealPlan {
+public class UserInfo {
 	@Id
-	@Column(name="mealplan_id")
-	private int mealPlanId;
+	@Column(name="info_id", unique = true)
+	private int infoId;
 	
-	@Column(name="user_name")
+	@Column(name="user_name", unique = true)
 	private String userName;
 	
-	@Column(name="food_id")
-	private int foodId;
+	@Column(name="tdee", unique = true)
+	private int tdee;
 	
-	@Column(name="amount")
-	private int amount;
-	
-	@Column(name="mealplan_date")
-	private String mealPlanDate;
+	@Column(name="nutrition_type", unique = true)
+	private int nutritionType;
 }
