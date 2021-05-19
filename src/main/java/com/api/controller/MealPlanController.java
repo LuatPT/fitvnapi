@@ -18,38 +18,40 @@ import com.api.service.MealPlanService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping(value="/v1")
+@RequestMapping(value = "/v1")
 public class MealPlanController {
-		private MealPlanService mealPlanService;
-		
-		@Autowired
-		public MealPlanController(MealPlanService mealPlanService) {
-			this.mealPlanService = mealPlanService;
-		}
+	private MealPlanService mealPlanService;
 
-		@RequestMapping(method = RequestMethod.POST, value = "/getMealPlans")
-		public ResultList index (@RequestBody DxoGetMealDto requestGetMeal) {
-			return CommonClass.createResultList(mealPlanService.getMealPlanList(requestGetMeal.getUserName(), requestGetMeal.getMealPlanDate()));
-		}
-		
-		@RequestMapping(method=RequestMethod.GET, value = "/mealPlans/{mealPlan_id}")
-		public @ResponseBody Result getById (@PathVariable("mealPlan_id") Integer mealPlanId) {
-			MealPlan mealPlan = mealPlanService.findMealPlanById(mealPlanId);
-			return CommonClass.createResult(mealPlan);
-		}
-		
-		@RequestMapping(method=RequestMethod.PUT, value = "/mealPlans/{mealPlan_id}")
-		public @ResponseBody void updateMealPlanMethod (@PathVariable("mealPlan_id") Integer mealPlanId, @RequestBody MealPlan mealPlan) {
-			mealPlanService.updateMealPlan(mealPlan);
-		}
-		
-		@RequestMapping(method=RequestMethod.POST, value = "/mealPlans")
-		public @ResponseBody void addMealPlan ( @RequestBody MealPlan mealPlan) {
-			mealPlanService.inserMealPlan(mealPlan);
-		}
-		
-		@RequestMapping(method=RequestMethod.DELETE, value = "/mealPlans/{mealPlan_id}")
-		public @ResponseBody void deleteMealPlan (@PathVariable("mealPlan_id") Integer mealPlanId) {
-			mealPlanService.deleteMealPlan(mealPlanId);
-		}
+	@Autowired
+	public MealPlanController(MealPlanService mealPlanService) {
+		this.mealPlanService = mealPlanService;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/getMealPlans")
+	public ResultList index(@RequestBody DxoGetMealDto requestGetMeal) {
+		return CommonClass.createResultList(
+				mealPlanService.getMealPlanList(requestGetMeal.getUserName(), requestGetMeal.getMealPlanDate()));
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/mealPlans/{mealPlan_id}")
+	public @ResponseBody Result getById(@PathVariable("mealPlan_id") Integer mealPlanId) {
+		MealPlan mealPlan = mealPlanService.findMealPlanById(mealPlanId);
+		return CommonClass.createResult(mealPlan);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/mealPlans/{mealPlan_id}")
+	public @ResponseBody void updateMealPlanMethod(@PathVariable("mealPlan_id") Integer mealPlanId,
+			@RequestBody MealPlan mealPlan) {
+		mealPlanService.updateMealPlan(mealPlan);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/mealPlans")
+	public @ResponseBody void addMealPlan(@RequestBody MealPlan mealPlan) {
+		mealPlanService.inserMealPlan(mealPlan);
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/mealPlans/{mealPlan_id}")
+	public @ResponseBody void deleteMealPlan(@PathVariable("mealPlan_id") Integer mealPlanId) {
+		mealPlanService.deleteMealPlan(mealPlanId);
+	}
 }

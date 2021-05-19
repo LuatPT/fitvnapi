@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.common.CommonClass;
 import com.api.entity.UserInfo;
-import com.api.model.DxoGetMealDto;
+import com.api.model.DxoGetUserInfoDto;
 import com.api.model.Result;
-import com.api.model.ResultList;
 import com.api.service.UserInfoService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -27,9 +26,9 @@ public class UserInfoController {
 		this.userInfoService = userInfoService;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/userInfos")
-	public ResultList index (@RequestBody DxoGetMealDto requestGetMeal) {
-		return CommonClass.createResultList(userInfoService.getUserInfoList(requestGetMeal.getUserName());
+	@RequestMapping(method = RequestMethod.POST, value = "/getUserInfos")
+	public Result index (@RequestBody DxoGetUserInfoDto requestGetUI) {
+		return CommonClass.createResult(userInfoService.getUserInfoByUserName(requestGetUI.getUserName()));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value = "/userInfos/{info_id}")
@@ -44,8 +43,8 @@ public class UserInfoController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value = "/userInfos")
-	public @ResponseBody void addUserInfo ( @RequestBody UserInfo userInfo) {
-		userInfoService.inserUserInfo(userInfo);
+	public @ResponseBody void addUserInfo (@RequestBody UserInfo userInfo) {
+		userInfoService.insertUserInfo(userInfo);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value = "/userInfos/{info_id}")
