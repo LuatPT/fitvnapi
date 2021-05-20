@@ -44,15 +44,30 @@ public class UserInfoRepository {
 		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			tx.begin();
-			//Check current max id 
-			int id = getMaxId() + 1;
-			userInfo.setInfoId(id);
-			//Check update or add
+			
 			if (e == Action.ADD) {
+				//Check current max id 
+				//Check update or add
+				int id = getMaxId() + 1;
+				userInfo.setInfoId(id);
 				entityManager.persist(userInfo);
 				tx.commit();
 			}else {
-				entityManager.merge(userInfo);
+				String sql = "UPDATE UserInfo u SET tdee = :uTdee, nutritionType = :uNutrition, age = :uAge, fullName = :uFName, gender = :uGender, height = :uHeight, weight = :uWeight, bodyFat = :uBdf, target = :uTarget WHERE u.infoId = :uId";
+				//Create query 
+				Query query = entityManager.createQuery(sql);
+
+				query.setParameter("uTdee", userInfo.getTdee());
+				query.setParameter("uNutrition", userInfo.getNutritionType());
+				query.setParameter("uAge", userInfo.getAge());
+				query.setParameter("uFName", userInfo.getFullName());
+				query.setParameter("uGender", userInfo.getGender());
+				query.setParameter("uHeight", userInfo.getHeight());
+				query.setParameter("uWeight", userInfo.getWeight());
+				query.setParameter("uBdf", userInfo.getBodyFat());
+				query.setParameter("uTarget", userInfo.getTarget());
+				query.setParameter("uId", userInfo.getInfoId());
+				query.executeUpdate();
 				tx.commit();
 			}
 			

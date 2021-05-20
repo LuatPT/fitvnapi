@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.api.common.NutritionType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +30,7 @@ public class UserInfo {
 	private int tdee;
 	
 	@Column(name="nutrition_type")
-	private int nutritionType;
+	private NutritionType nutritionType;
 	
 	@Column(name="full_name", unique = true)
 	private String fullName;
