@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.common.CommonClass.Action;
 import com.api.entity.MealPlan;
+import com.api.model.RstGetCaloMapDto;
 import com.api.model.RstMealPlanListDto;
 import com.api.repository.MealPlanRepository;
 import com.api.service.MealPlanService;
@@ -44,6 +45,11 @@ public class MealPlanServiceImpl implements MealPlanService{
 	@Override
 	public MealPlan findMealPlanById(int mealPlanId) {
 		return mealPlanRepository.getMealPlanById(mealPlanId);
+	}
+
+	@Override
+	public List<RstGetCaloMapDto> getCaloMap(String userName) {
+		return mealPlanRepository.getCaloMapPerDay(userName);
 	}
 
 }

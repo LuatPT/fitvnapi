@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.common.CommonClass.Action;
 import com.api.entity.MealPlan;
+import com.api.model.RstGetCaloMapDto;
 import com.api.model.RstMealPlanListDto;
 
 @Repository
@@ -97,5 +98,15 @@ public class MealPlanRepository {
 		Query query = entityManager.createQuery(sql);
 		int maxId =  (int) query.getSingleResult(); 
 		return maxId;
+	}
+
+	public List<RstGetCaloMapDto> getCaloMapPerDay(String userName) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		String sql = "SELECT new com.api.model.RstGetCaloMapDto(m.userName, SUM(m.amount*f.foodCalo) as totalCalo, m.mealPlanDate) FROM MealPlan m Join Food f ON m.foodId = f.foodId group by m.mealPlanDate, m.userName having m.userName= :mUName";
+		//Create query 
+		Query query = entityManager.createQuery(sql);
+		query.setParameter("mUName", userName);
+		List<RstGetCaloMapDto> list = query.getResultList();
+		return list;
 	}
 }

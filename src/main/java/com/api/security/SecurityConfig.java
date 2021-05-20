@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/v1/exercisePlans/**").permitAll()// everyone can access
 		.antMatchers("/v1/getUserInfos/**").permitAll()
 		.antMatchers("/v1/userInfos/**").permitAll()
+		.antMatchers("/v1/getCaloMap/**").permitAll()
 //		.antMatchers("/v1/exercises").hasAuthority(LoginRole.USER.getAuthority())
 		.anyRequest().authenticated();
 		// Thêm một lớp Filter kiểm tra jwt

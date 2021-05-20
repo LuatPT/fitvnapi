@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.common.CommonClass;
 import com.api.entity.MealPlan;
+import com.api.model.DxoGetCaloMapDto;
 import com.api.model.DxoGetMealDto;
 import com.api.model.Result;
 import com.api.model.ResultList;
@@ -29,8 +30,12 @@ public class MealPlanController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/getMealPlans")
 	public ResultList index(@RequestBody DxoGetMealDto requestGetMeal) {
-		return CommonClass.createResultList(
-				mealPlanService.getMealPlanList(requestGetMeal.getUserName(), requestGetMeal.getMealPlanDate()));
+		return CommonClass.createResultList(mealPlanService.getMealPlanList(requestGetMeal.getUserName(), requestGetMeal.getMealPlanDate()));
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/getCaloMap")
+	public ResultList getCaloMap(@RequestBody DxoGetCaloMapDto dxoGetCaloMapDto) {
+		return CommonClass.createResultList(mealPlanService.getCaloMap(dxoGetCaloMapDto.getUserName()));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/mealPlans/{mealPlan_id}")
