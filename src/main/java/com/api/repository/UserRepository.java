@@ -47,7 +47,7 @@ public class UserRepository {
 		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			tx.begin();
-			String sql = "Insert into user(user_id, username, password, role) values(?, ?, ?, ?)";
+			String sql = "Insert into users(user_id, username, password, role) values(?, ?, ?, ?)";
 			if(e == Action.ADD) {
 				Query query = entityManager.createNativeQuery(sql)
 						.setParameter(1, user.getUserId())
