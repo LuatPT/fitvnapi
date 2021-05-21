@@ -43,7 +43,7 @@ public class MealPlanRepository {
 			//Check current max id 
 			int id = getMaxId() + 1;
 			//Check update or add
-			if (e == Action.ADD) {
+			if (e == Action.ADD && checkExistByFoodId(meal.getFoodId(), meal.getMealPlanDate()) == false) {
 				Query  query = entityManager.createNativeQuery(sql)
 						.setParameter(1, id)
 						.setParameter(2, meal.getUserName())
@@ -99,10 +99,22 @@ public class MealPlanRepository {
 		int maxId =  (int) query.getSingleResult(); 
 		return maxId;
 	}
-
+	public boolean checkExistByFoodId(int foodId, String mealPlanDate) {
+		boolean check = false;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		String sql = "SELECT COUNT(m.mealPlanId) FROM MealPlan m WHERE m.foodId = :fId AND m.mealPlanDate = :mDate";
+		Query query = entityManager.createQuery(sql);
+		query.setParameter("fId", foodId);
+		query.setParameter("mDate", mealPlanDate);
+		Long count = (Long) query.getSingleResult();
+		if (count > 0) {
+			check = true;
+		}
+		return check;
+	}
 	public List<RstGetCaloMapDto> getCaloMapPerDay(String userName) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String sql = "SELECT new com.api.model.RstGetCaloMapDto(m.userName, SUM(m.amount*f.foodCalo) as totalCalo, m.mealPlanDate) FROM MealPlan m Join Food f ON m.foodId = f.foodId group by m.mealPlanDate, m.userName having m.userName= :mUName";
+		String sql = "SELECT new com.api.model.RstGetCaloMapDto(m.userName, SUM(m.amount*f.foodCalo) as totalCalo, m.mealPlanDate) FROM MealPlan m Join Food f ON m.foodId = f.foodId group by m.mealPlanDate, m.userName having m.userName= :mUName ORDER BY m.mealPlanDate";
 		//Create query 
 		Query query = entityManager.createQuery(sql);
 		query.setParameter("mUName", userName);
