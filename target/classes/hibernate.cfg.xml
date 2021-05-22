@@ -4,13 +4,11 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/fitvn_db?useSSL=false</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.connection.driver_class">${JDBC_DATABASE_DRIVER:}</property>
+        <property name="hibernate.connection.url">${JDBC_DATABASE_URL:}</property>
+        <property name="hibernate.connection.username">${JDBC_DATABASE_USERNAME:}</property>
+        <property name="hibernate.connection.password">${JDBC_DATABASE_PASSWORD:}</property>
+        <property name="hibernate.dialect">${SPRING_JPA_HIBERNATE_DIALECT:}</property>
         <property name="hibernate.hibernate.current_session_context_class">thread</property>
-        
-        <mapping class="com.api.entity.Exercise" />
     </session-factory>
 </hibernate-configuration>
