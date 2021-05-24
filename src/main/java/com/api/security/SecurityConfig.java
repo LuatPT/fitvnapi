@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors()
 		.and().csrf().disable() 
 		.authorizeRequests()
+		.antMatchers("/").permitAll()
 		.antMatchers("/v1/login").permitAll() 
 		.antMatchers("/v1/register").permitAll()
 		.antMatchers("/v1/foods/**").permitAll()// everyone can access
