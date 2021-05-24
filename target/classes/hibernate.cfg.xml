@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.connection.driver_class">${JDBC_DATABASE_DRIVER:}</property>
+        <property name="hibernate.connection.driver_class">${JDBC_DATABASE_DRIVER}</property>
         <property name="hibernate.connection.url">${JDBC_DATABASE_URL}</property>
         <property name="hibernate.connection.username">${JDBC_DATABASE_USERNAME}</property>
         <property name="hibernate.connection.password">${JDBC_DATABASE_PASSWORD}</property>
