@@ -50,6 +50,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.passwordEncoder(passwordEncoder());// cung cấp password encoder
 	}
 	
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://fitvn.herokuapp.com"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.cors()
