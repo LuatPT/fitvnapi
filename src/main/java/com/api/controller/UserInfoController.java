@@ -1,6 +1,7 @@
 package com.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import com.api.model.DxoGetUserInfoDto;
 import com.api.model.Result;
 import com.api.service.UserInfoService;
 
+@CrossOrigin(origins = "https://fitvn.herokuapp.com")
 @RestController
 @RequestMapping(value="/v1")
 public class UserInfoController {
