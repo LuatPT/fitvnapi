@@ -4,11 +4,11 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.connection.driver_class">${JDBC_DATABASE_DRIVER}</property>
-        <property name="hibernate.connection.url">${JDBC_DATABASE_URL}</property>
-        <property name="hibernate.connection.username">${JDBC_DATABASE_USERNAME}</property>
-        <property name="hibernate.connection.password">${JDBC_DATABASE_PASSWORD}</property>
-        <property name="hibernate.dialect">${SPRING_JPA_HIBERNATE_DIALECT}</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://ec2-18-215-111-67.compute-1.amazonaws.com:5432/db4f0o4knrueov</property>
+        <property name="hibernate.connection.username">fgftmfttkjinyu</property>
+        <property name="hibernate.connection.password">e9de24c7f0e7b8a11e594827ac2ebb7dbb0ca97ac60b55641a1abaa1fcd49451</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
         <property name="hibernate.hibernate.current_session_context_class">thread</property>
     </session-factory>
 </hibernate-configuration>
