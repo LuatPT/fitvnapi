@@ -1,7 +1,6 @@
 package com.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import com.api.model.Result;
 import com.api.model.ResultList;
 import com.api.service.MealPlanService;
 
-@CrossOrigin(origins = "https://fitvn.herokuapp.com")
 @RestController
 @RequestMapping(value = "/v1")
 public class MealPlanController {
