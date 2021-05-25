@@ -32,6 +32,15 @@ public class JwtAuthenticatonFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
+			response.setHeader("Access-Control-Allow-Origin", "https://fitvn.herokuapp.com");
+	        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+	        response.setHeader("Access-Control-Max-Age", "3600");
+	        response.setHeader("Access-Control-Allow-Headers", "X-Requested-With, X-Auth-Token");
+	        response.setHeader("Access-Control-Allow-Credentials", "true");
+
+	        if(!"OPTIONS".equalsIgnoreCase(request.getMethod())) {
+	        	filterChain.doFilter(request, response);
+	        }
 			String jwt = getJwtFromRequest(request);
 			//If jwt valid
 			if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
