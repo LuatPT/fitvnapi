@@ -66,16 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return source;
     }
 	
-	 @Bean
-	 public WebMvcConfigurer corsConfigurer() {
-	       return new WebMvcConfigurer() {
-	            @Override
-	            public void addCorsMappings(CorsRegistry registry) {
-	                registry.addMapping("/**").allowedMethods("*");
-	            }
-	        };
-	    }
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.cors()
