@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.api.security.jwt.JwtAuthenticatonFilter;
 import com.api.service.UserService;
@@ -64,9 +66,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return source;
     }
 	
+	 @Bean
+	 public WebMvcConfigurer corsConfigurer() {
+	       return new WebMvcConfigurer() {
+	            @Override
+	            public void addCorsMappings(CorsRegistry registry) {
+	                registry.addMapping("/**").allowedMethods("*");
+	            }
+	        };
+	    }
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.cors().configurationSource(corsConfigurationSource())
+		http.cors()
 		.and().csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/").permitAll()
