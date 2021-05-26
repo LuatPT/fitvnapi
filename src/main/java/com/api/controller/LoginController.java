@@ -8,7 +8,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import com.api.security.payload.LoginRequest;
 import com.api.security.payload.LoginResponse;
 import com.api.service.UserService;
 
-@CrossOrigin(origins = "https://fitvn.herokuapp.com")
 @RestController
 @RequestMapping(value="/v1")
 public class LoginController {
