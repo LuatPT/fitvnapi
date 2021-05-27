@@ -3,11 +3,14 @@ package com.api.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import com.api.security.payload.LoginRequest;
 import com.api.security.payload.LoginResponse;
 import com.api.service.UserService;
 
+@CrossOrigin(origins = "http://fitvn.herokuapp.com")
 @RestController
 @RequestMapping(value="/v1")
 public class LoginController {
@@ -48,10 +52,11 @@ public class LoginController {
 	}
 	
 	@PostMapping( "/register")
-	public void registerUser(@Valid @RequestBody User user) {
+	public ResponseEntity<Void> registerUser(@Valid @RequestBody User user) {
 		String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
 		user.setPassword(encodedPassword);
 		userService.registerUser(user);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
 	
