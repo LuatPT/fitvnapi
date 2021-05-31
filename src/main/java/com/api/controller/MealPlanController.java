@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class MealPlanController {
 		this.mealPlanService = mealPlanService;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/getMealPlans")
+	@RequestMapping(method = RequestMethod.POST, value = "/getMealPlans", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<RstMealPlanListDto>> index(@RequestBody DxoGetMealDto requestGetMeal) {
 		List<RstMealPlanListDto> listMealPlan = mealPlanService.getMealPlanList(requestGetMeal.getUserName(),
 				requestGetMeal.getMealPlanDate());
@@ -40,7 +41,7 @@ public class MealPlanController {
 		return new ResponseEntity<List<RstMealPlanListDto>>(listMealPlan, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/getCaloMap")
+	@RequestMapping(method = RequestMethod.POST, value = "/getCaloMap", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<RstGetCaloMapDto>> getCaloMap(@RequestBody DxoGetCaloMapDto dxoGetCaloMapDto) {
 		List<RstGetCaloMapDto> listCaloMap = mealPlanService.getCaloMap(dxoGetCaloMapDto.getUserName());
 		if (listCaloMap.isEmpty()) {
@@ -49,7 +50,7 @@ public class MealPlanController {
 		return new ResponseEntity<List<RstGetCaloMapDto>>(listCaloMap, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/mealPlans/{mealPlan_id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/mealPlans/{mealPlan_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MealPlan> getById(@PathVariable("mealPlan_id") Integer mealPlanId) {
 		MealPlan mealPlan = mealPlanService.findMealPlanById(mealPlanId);
 		if (mealPlan == null) {

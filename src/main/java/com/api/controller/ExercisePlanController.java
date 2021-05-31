@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,7 @@ public class ExercisePlanController {
 		this.exercisePlanService = exercisePlanService;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/exercisePlans")
+	@RequestMapping(method = RequestMethod.GET, value = "/exercisePlans", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ExercisePlan>> index() {
 		List<ExercisePlan> listExPlan = exercisePlanService.getExercisePlanList();
 		if (listExPlan.isEmpty()) {
@@ -35,7 +36,7 @@ public class ExercisePlanController {
 		return new ResponseEntity<List<ExercisePlan>>(listExPlan, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/exercisePlans/{exercisePlan_id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/exercisePlans/{exercisePlan_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ExercisePlan> getById(@PathVariable("exercisePlan_id") Integer exercisePlanId) {
 
 		ExercisePlan exercisePlan = exercisePlanService.findExercisePlanById(exercisePlanId);

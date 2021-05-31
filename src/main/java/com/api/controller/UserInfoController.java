@@ -2,6 +2,7 @@ package com.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,7 @@ public class UserInfoController {
 		this.userInfoService = userInfoService;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/getUserInfos")
+	@RequestMapping(method = RequestMethod.POST, value = "/getUserInfos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserInfo> index(@RequestBody DxoGetUserInfoDto requestGetUI) {
 		UserInfo userInfo = userInfoService.getUserInfoByUserName(requestGetUI.getUserName());
 		if (userInfo == null) {
@@ -34,7 +35,7 @@ public class UserInfoController {
 		return new ResponseEntity<UserInfo>(userInfo, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/userInfos/{info_id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/userInfos/{info_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserInfo> getById(@PathVariable("info_id") Integer infoId) {
 		UserInfo userInfo = userInfoService.findUserInfoById(infoId);
 		if (userInfo == null) {

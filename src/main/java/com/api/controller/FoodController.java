@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +28,7 @@ public class FoodController {
 		this.foodService = foodService;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/foods")
+	@RequestMapping(method = RequestMethod.GET, value = "/foods", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Food>> index() {
 		List<Food> listFood = foodService.getFoodList();
 		if (listFood.isEmpty()) {
@@ -37,7 +38,7 @@ public class FoodController {
 		return new ResponseEntity<List<Food>>(listFood, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/foods/{food_id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/foods/{food_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Food> getById(@PathVariable("food_id") Integer foodId) {
 		Food food = foodService.findFoodById(foodId);
 		if (food == null) {

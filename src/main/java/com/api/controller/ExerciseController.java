@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,17 +28,16 @@ public class ExerciseController {
 		this.exerciseService = exerciseService;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/exercises")
+	@RequestMapping(method = RequestMethod.GET, value = "/exercises", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Exercise>> index() {
 		List<Exercise> listExercise = exerciseService.getExerciseList();
 		if (listExercise.isEmpty()) {
-			return new ResponseEntity<List<Exercise>>(HttpStatus.NO_CONTENT);// You many decide to return
-																				// HttpStatus.NOT_FOUND
+			return new ResponseEntity<List<Exercise>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Exercise>>(listExercise, HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/exercises/{exercise_id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/exercises/{exercise_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Exercise> getById(@PathVariable("exercise_id") Integer exerciseId) {
 		Exercise exercise = exerciseService.findExerciseById(exerciseId);
 		if (exercise == null) {
