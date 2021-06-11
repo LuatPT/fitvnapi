@@ -2,10 +2,18 @@ package com.api.common;
 
 import java.util.List;
 
+import javax.persistence.EntityManagerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.api.model.Result;
 import com.api.model.ResultList;
 
 public class CommonClass {
+	
+	@Autowired
+	private static EntityManagerFactory entityManagerFactory;
+	
 	public static enum Action {
 		 UPDATE,
 		 ADD
