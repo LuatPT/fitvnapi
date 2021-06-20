@@ -13,6 +13,8 @@ public class LoginResponse {
 	
 	private String refreshToken;
 	
+	private String expiryDate;
+	
 	private Long id;
 	
 	private String username;
@@ -36,9 +38,10 @@ public class LoginResponse {
 		this.accessToken = accessToken;
 	}
 	
-	public LoginResponse(String accessToken, String refreshToken) {
+	public LoginResponse(String accessToken, String refreshToken, String expiryDate) {
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;
+		this.expiryDate = expiryDate;
 	}
 	
 }

@@ -21,7 +21,7 @@ public class JwtTokenProvider {
 	// private key only server know
 	private final String JWT_KEY_SECRET = "mykeysecret";
 	
-	private final long JWT_EXPIRE = 604800000L;
+	private final long JWT_EXPIRE = 300000L; //5 minutes
 	
 	//create new token with user
 	public String generateToken(CustomUserDetail userDetail) {
@@ -35,8 +35,7 @@ public class JwtTokenProvider {
 			.setIssuedAt(now) // hieu luc ngay lap tuc
 			.setExpiration(expireDate)
 			.signWith(SignatureAlgorithm.HS512, JWT_KEY_SECRET)
-			.compact()
-			;
+			.compact();
 	}
 	
 	public Long getUserIdFromJWT(String token) {

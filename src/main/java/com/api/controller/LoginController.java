@@ -1,5 +1,10 @@
 package com.api.controller;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -66,13 +71,18 @@ public class LoginController {
 
 		RefreshToken refreshToken = refreshTokenService.createRefreshToken(loginRequest.getUsername());
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
+                .withLocale( Locale.UK )
+                .withZone( ZoneId.systemDefault() );
+		String expiryDate = formatter.format(refreshToken.getExpiryDate());
+		
 		Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken.getToken());
 		refreshTokenCookie.setHttpOnly(true);
 //		refreshTokenCookie.setSecure(true); // only allows HTTPS
 		response.addCookie(refreshTokenCookie);
 		
 		// create response and put jwt
-		return new LoginResponse(jwt, refreshToken.getToken());
+		return new LoginResponse(jwt, refreshToken.getToken(), expiryDate);
 	}
 
 	@PostMapping("/register")
