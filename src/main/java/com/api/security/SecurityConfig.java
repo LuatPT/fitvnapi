@@ -85,7 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        "/swagger-ui.html",
 	        "/v2/api-docs",
 	        "/v1/api-docs",
-	        "/webjars/**"
+	        "/webjars/**",
+	        "/v1/paymentVNPay/**",
+	        "/v1/saveInfoVnPay/**"
 	};
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

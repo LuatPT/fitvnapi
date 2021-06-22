@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.common.ResponseCheckout;
 import com.api.model.VNPay;
 import com.api.repository.PaymentRepository;
 import com.api.service.PaymentService;;
@@ -22,5 +23,10 @@ public class PaymentServiceImpl implements PaymentService{
 
 	public String paymentWithVNPay(VNPay vnPay, HttpServletRequest request) {
 		return paymentRepository.paymentWithVnPayMethod(vnPay, request);
+	}
+
+	@Override
+	public ResponseCheckout saveInfoVnPayToDB(HttpServletRequest req) {
+		return paymentRepository.saveInfoVnPayToDBMethod(req);
 	}	
 }
