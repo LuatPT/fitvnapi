@@ -45,15 +45,6 @@ public class JwtAuthenticatonFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
-//			response.setHeader("Access-Control-Allow-Origin", "https://fitvn.herokuapp.com, http://localhost:3000");
-//	        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
-//	        response.setHeader("Access-Control-Max-Age", "3600");
-//	        response.setHeader("Access-Control-Allow-Headers","Content-Type, Accept, X-Requested-With, X-Auth-Token");
-//	        response.setHeader("Access-Control-Allow-Credentials", "true");
-//
-//	        if(!"OPTIONS".equalsIgnoreCase(request.getMethod())) {
-//	        	filterChain.doFilter(request, response);
-//	        }
 			String refreshToken = Arrays.stream(request.getCookies()).filter(c -> c.getName().equals("refresh_token"))
 					.findFirst().map(Cookie::getValue).orElse(null);
 

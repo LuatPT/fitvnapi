@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Config {
 
     public static String vnp_PayUrl = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_Returnurl = "http://localhost:8080/api/v1/saveInfoVnPay";
+    public static String vnp_Returnurl = "http://localhost:3000/checkOutSuccess";
     public static String vnp_Merchant = "DEMO";
     // Get vnp_TmnCode, vnp_HashSecret in email from VNPAY
     public static String vnp_TmnCode = "IJMHOO4N";
@@ -75,7 +75,7 @@ public class Config {
     }
 
     //Util for VNPAY
-    public static String hashAllFields(Map fields) throws UnsupportedEncodingException {
+    public static String hashAllFields(Map<String, String> fields) throws UnsupportedEncodingException {
         // create a list and sort it
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);
