@@ -36,4 +36,9 @@ public class PaymentController {
 		ResponseCheckout res = paymentService.saveInfoVnPayToDB(request);
 		return new ResponseEntity<ResponseCheckout>(res,HttpStatus.OK);
 	}
+	@RequestMapping(method = RequestMethod.POST, value = "/paymentMoMo", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> paymentMoMo(@RequestBody VNPay vnPay, HttpServletRequest request ) {
+		String paymentUrl = paymentService.paymentWithVNPay(vnPay,request);
+		return new ResponseEntity<String>(paymentUrl,HttpStatus.OK);
+	}
 }
