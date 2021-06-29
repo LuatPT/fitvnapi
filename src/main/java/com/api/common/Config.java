@@ -28,7 +28,7 @@ public class Config {
 	
 	// =================For VNPay==============
     public static String vnp_PayUrl = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_Returnurl = "http://localhost:3000/checkOutSuccess";
+    public static String vnp_Returnurl = "http://localhost:3000/checkOutSuccessVnPay";
     public static String vnp_Merchant = "DEMO";
     // Get vnp_TmnCode, vnp_HashSecret in email from VNPAY
     public static String vnp_TmnCode = "IJMHOO4N";
@@ -37,7 +37,7 @@ public class Config {
     
     // =================For MOMO==============
     public static String momo_EndPoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-    public static String momo_ReturnURL = "http://localhost:3000/checkOutSuccess";
+    public static String momo_ReturnURL = "http://localhost:3000/checkOutSuccessMoMo";
     public static String momo_NotifyURL = "http://localhost:8080/api/v1/saveInfoMoMo";
     public static String momo_ExtraData = "";
     public static String momo_RequestType = "captureMoMoWallet";

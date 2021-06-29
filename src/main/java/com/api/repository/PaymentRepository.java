@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.api.common.Config;
 import com.api.common.ResponseCheckout;
+import com.api.entity.MoMoInfo;
 import com.api.entity.VNPayInfo;
 import com.api.model.MoMoRequest;
 import com.api.model.MoMoRequestFromClient;
@@ -149,7 +150,7 @@ public class PaymentRepository {
 			if (checkOrderStatus) {
 				if ("00".equals(req.getParameter("vnp_ResponseCode"))) {
 					// Save to DB
-					saveToDB(req);
+					saveToDBVnPay(req);
 				} else {
 					// Not success
 					response = ResponseCheckout.NOTOK;
@@ -166,7 +167,7 @@ public class PaymentRepository {
 
 	}
 
-	public void saveToDB(HttpServletRequest req) {
+	public void saveToDBVnPay(HttpServletRequest req) {
 
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
@@ -211,5 +212,47 @@ public class PaymentRepository {
 		MoMoResponse response = restTemplate.postForObject(Config.momo_EndPoint, request, MoMoResponse.class);
 		
 		return response;
+	}
+
+	public ResponseCheckout saveInfoMoMoToDBMethod(HttpServletRequest req) {
+		ResponseCheckout response = ResponseCheckout.OK;
+		System.out.println(req.getParameter("errorCode"));
+		if(!("0").equals(req.getParameter("errorCode"))) {
+			response = ResponseCheckout.NOTOK;
+		}else {
+			saveToDBMoMo(req);
+		}
+		return response;
+	}
+	
+	public void saveToDBMoMo(HttpServletRequest req) {
+
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction tx = entityManager.getTransaction();
+		// Save to db
+		MoMoInfo obj = new MoMoInfo();
+		obj.setPartnerCode(req.getParameter("partnerCode"));
+		obj.setRequestId(req.getParameter("requestId"));
+		obj.setAmount(req.getParameter("amount"));
+		obj.setOrderId(req.getParameter("orderId"));
+		obj.setOrderInfo(req.getParameter("orderInfo"));
+		obj.setOrderType(req.getParameter("orderType"));
+		obj.setTransId(req.getParameter("transId"));
+		obj.setMessage(req.getParameter("message"));
+		obj.setLocalMessage(req.getParameter("localMessage"));
+		obj.setResponseTime(req.getParameter("responseTime"));
+		obj.setErrorCode(req.getParameter("errorCode"));
+		obj.setPayType(req.getParameter("payType"));
+		obj.setExtraData(req.getParameter("extraData"));
+		obj.setSignature(req.getParameter("signature"));
+		try {
+			tx.begin();
+			entityManager.persist(obj);
+			tx.commit();
+		} catch (RuntimeException e1) {
+			tx.rollback();
+		} finally {
+			entityManager.close();
+		}
 	}
 }

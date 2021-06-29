@@ -35,5 +35,10 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public MoMoResponse getDataFromMoMo(MoMoRequestFromClient moMoRequestFromClient) {
 		return paymentRepository.getDataFromMoMoWeb(moMoRequestFromClient);
+	}
+
+	@Override
+	public ResponseCheckout saveInfoMoMoToDB(HttpServletRequest req) {
+		return paymentRepository.saveInfoMoMoToDBMethod(req);
 	}	
 }

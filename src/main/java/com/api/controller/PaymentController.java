@@ -45,7 +45,7 @@ public class PaymentController {
 	}
 	@RequestMapping(method = RequestMethod.GET, value = "/saveInfoMoMo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseCheckout> saveInfoMoMo(HttpServletRequest request) {
-		ResponseCheckout res = null;
+		ResponseCheckout res = paymentService.saveInfoMoMoToDB(request);
 		return new ResponseEntity<ResponseCheckout>(res,HttpStatus.OK);
 	}
 }

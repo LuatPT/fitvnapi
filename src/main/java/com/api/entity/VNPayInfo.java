@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table(name="vnPayInfo")
+@Table(name="vn_pay_info")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor

@@ -13,4 +13,6 @@ public interface PaymentService {
 	public ResponseCheckout saveInfoVnPayToDB(HttpServletRequest req);
 
 	public MoMoResponse getDataFromMoMo(MoMoRequestFromClient moMoRequestFromClient);
+
+	public ResponseCheckout saveInfoMoMoToDB(HttpServletRequest request);
 }
