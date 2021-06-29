@@ -92,7 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        "/v1/api-docs",
 	        "/webjars/**",
 	        "/v1/paymentVNPay/**",
-	        "/v1/saveInfoVnPay/**"
+	        "/v1/saveInfoVnPay/**",
+	        "/v1/callMoMoApi/**"
 	};
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

@@ -21,11 +21,17 @@ import javax.transaction.Transactional;
 
 //import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestTemplate;
 
 import com.api.common.Config;
 import com.api.common.ResponseCheckout;
 import com.api.entity.VNPayInfo;
+import com.api.model.MoMoRequest;
+import com.api.model.MoMoRequestFromClient;
+import com.api.model.MoMoResponse;
 import com.api.model.VNPay;
 
 @Repository
@@ -185,5 +191,23 @@ public class PaymentRepository {
 		} finally {
 			entityManager.close();
 		}
+	}
+
+	public MoMoResponse getDataFromMoMoWeb(MoMoRequestFromClient moMoRequestFromClient) {
+		RestTemplate restTemplate = new RestTemplate();	
+		String requestId = String.valueOf(System.currentTimeMillis());
+		String orderId = String.valueOf(System.currentTimeMillis());
+		
+		String signature = Config.createPaymentCreationRequest(orderId, requestId, moMoRequestFromClient.getAmount(), moMoRequestFromClient.getOrderInfo(), 
+				Config.momo_ReturnURL, Config.momo_NotifyURL, Config.momo_ExtraData, Config.momo_PartnerCode, Config.momo_AccessKey, Config.momo_SecretKey);
+		
+		MoMoRequest requestMoMo = new MoMoRequest(Config.momo_PartnerCode, orderId, moMoRequestFromClient.getOrderInfo(), Config.momo_AccessKey, moMoRequestFromClient.getAmount(),
+				signature, Config.momo_ExtraData, requestId, Config.momo_NotifyURL, Config.momo_ReturnURL, moMoRequestFromClient.getRequestType());
+			
+		HttpHeaders httpHeaders = restTemplate.headForHeaders(Config.momo_EndPoint);
+		HttpEntity<MoMoRequest> request = new HttpEntity<MoMoRequest>(requestMoMo, httpHeaders);
+		MoMoResponse response = restTemplate.postForObject(Config.momo_EndPoint, request, MoMoResponse.class);
+		
+		return response;
 	}
 }

@@ -7,6 +7,7 @@ package com.api.common;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ import javax.servlet.http.HttpServletRequest;
  * @author xonv
  */
 public class Config {
-
+	
+	// =================For VNPay==============
     public static String vnp_PayUrl = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_Returnurl = "http://localhost:3000/checkOutSuccess";
     public static String vnp_Merchant = "DEMO";
@@ -32,7 +34,18 @@ public class Config {
     public static String vnp_TmnCode = "IJMHOO4N";
     public static String vnp_HashSecret = "ICSCFQTPWYUYUSZOJKHNLRBQOIEBWCSR";
     public static String vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
+    
+    // =================For MOMO==============
+    public static String momo_EndPoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+    public static String momo_ReturnURL = "http://localhost:3000/checkOutSuccess";
+    public static String momo_NotifyURL = "http://localhost:8080/api/v1/saveInfoMoMo";
+    public static String momo_ExtraData = "";
+    public static String momo_RequestType = "captureMoMoWallet";
 
+    public static String momo_PartnerCode = "MOMO08DT20210623";
+    public static String momo_AccessKey = "bEGzqKLnc6X72bjR";
+    public static String momo_SecretKey = "wFOfAnky6dg9LV0avXCswP9D6ajkvn0J";
+    
     public static String md5(String message) {
         String digest = null;
         try {
@@ -119,5 +132,29 @@ public class Config {
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
         }
         return sb.toString();
+    }
+    
+    // Encode momo signature to hmac Sha256
+    public static String createPaymentCreationRequest(String orderId, String requestId, String amount, String orderInfo,
+            String returnUrl, String notifyUrl, String extraData, String partnerCode, String accessKey, String secretKey) {
+    	String requestRawData = null;
+    	String encodeString = null;
+    	try {
+	    	
+    		requestRawData = new StringBuilder().append("partnerCode").append("=").append(partnerCode).append("&")
+	                .append("accessKey").append("=").append(accessKey).append("&")
+	                .append("requestId").append("=").append(requestId).append("&")
+	                .append("amount").append("=").append(amount).append("&")
+	                .append("orderId").append("=").append(orderId).append("&")
+	                .append("orderInfo").append("=").append(orderInfo).append("&")
+	                .append("returnUrl").append("=").append(returnUrl).append("&")
+	                .append("notifyUrl").append("=").append(notifyUrl).append("&")
+	                .append("extraData").append("=").append(extraData)
+	                .toString();
+			encodeString = Encoder.signHmacSHA256(requestRawData, secretKey);
+		} catch (InvalidKeyException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+    	return encodeString;
     }
 }
