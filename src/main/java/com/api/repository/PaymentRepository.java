@@ -23,6 +23,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
@@ -204,8 +205,9 @@ public class PaymentRepository {
 		MoMoRequest requestMoMo = new MoMoRequest(Config.momo_PartnerCode, orderId, moMoRequestFromClient.getOrderInfo(), Config.momo_AccessKey, moMoRequestFromClient.getAmount(),
 				signature, Config.momo_ExtraData, requestId, Config.momo_NotifyURL, Config.momo_ReturnURL, moMoRequestFromClient.getRequestType());
 			
-		HttpHeaders httpHeaders = restTemplate.headForHeaders(Config.momo_EndPoint);
-		HttpEntity<MoMoRequest> request = new HttpEntity<MoMoRequest>(requestMoMo, httpHeaders);
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<MoMoRequest> request = new HttpEntity<MoMoRequest>(requestMoMo, headers);
 		MoMoResponse response = restTemplate.postForObject(Config.momo_EndPoint, request, MoMoResponse.class);
 		
 		return response;

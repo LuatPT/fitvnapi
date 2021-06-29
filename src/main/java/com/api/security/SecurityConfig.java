@@ -93,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        "/webjars/**",
 	        "/v1/paymentVNPay/**",
 	        "/v1/saveInfoVnPay/**",
-	        "/v1/callMoMoApi/**"
+	        "/v1/paymentMoMo/**"
 	};
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

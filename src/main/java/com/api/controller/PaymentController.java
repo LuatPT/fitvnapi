@@ -38,15 +38,10 @@ public class PaymentController {
 		ResponseCheckout res = paymentService.saveInfoVnPayToDB(request);
 		return new ResponseEntity<ResponseCheckout>(res,HttpStatus.OK);
 	}
-	@RequestMapping(method = RequestMethod.POST, value = "/callMoMoApi", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST, value = "/paymentMoMo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MoMoResponse> callMoMoApi(@RequestBody MoMoRequestFromClient moMoRequestFromClient, HttpServletRequest request ) {
 		MoMoResponse responseMoMo = paymentService.getDataFromMoMo(moMoRequestFromClient);
 		return new ResponseEntity<MoMoResponse>(responseMoMo ,HttpStatus.OK);
-	}
-	@RequestMapping(method = RequestMethod.POST, value = "/paymentMoMo", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> paymentMoMo(@RequestBody VNPay vnPay, HttpServletRequest request ) {
-		String paymentUrl = null;
-		return new ResponseEntity<String>(paymentUrl,HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.GET, value = "/saveInfoMoMo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseCheckout> saveInfoMoMo(HttpServletRequest request) {
