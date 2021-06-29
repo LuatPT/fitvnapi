@@ -45,17 +45,18 @@ public class JwtAuthenticatonFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
-			String refreshToken = Arrays.stream(request.getCookies()).filter(c -> c.getName().equals("refresh_token"))
-					.findFirst().map(Cookie::getValue).orElse(null);
-
 			String jwt = getJwtFromRequest(request);
-			if (!StringUtils.hasText(jwt) && StringUtils.hasText(refreshToken) && tokenProvider.validateToken(jwt, REFRESH_KEY)) {
+			String refreshToken = null ;
+			if(request.getCookies() !=  null) {
+				refreshToken = Arrays.stream(request.getCookies()).filter(c -> c.getName().equals("refresh_token"))
+					.findFirst().map(Cookie::getValue).orElse(null);
+			}
+			if (!StringUtils.hasText(jwt) && StringUtils.hasText(refreshToken)) {
 
 				jwt = refreshTokenService.findByToken(refreshToken).map(refreshTokenService::verifyExpiration)
 						.map(RefreshToken::getUser).map(user -> {
 							return tokenProvider.generateToken(new CustomUserDetail(user));
-						}).orElseThrow(
-								() -> new TokenRefreshException(refreshToken, "Refresh token is not in database!"));
+						}).orElseThrow(() -> new TokenRefreshException("refreshToken", "Refresh token is not in database!"));
 
 				Long userId = tokenProvider.getUserIdFromJWT(jwt);
 				UserDetails userDetails = userService.getByUserId(userId);
