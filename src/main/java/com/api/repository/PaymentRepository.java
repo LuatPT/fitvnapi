@@ -260,12 +260,12 @@ public class PaymentRepository {
 	public MoMoRefundResponse getRefundFromMoMo(MoMoRefundRequestFromClient request) {
 		
 		RestTemplate restTemplate = new RestTemplate();	
-		String requestId = String.valueOf(System.currentTimeMillis());
-		String orderId = String.valueOf(System.currentTimeMillis());
+		String requestId = String.valueOf(System.currentTimeMillis() + 60 * 60 * 24);
+		String orderId = String.valueOf(System.currentTimeMillis() + 60 * 60 * 24);
 		
 		String signature = Config.createPaymentRefundRequest(Config.momo_PartnerCode, Config.momo_AccessKey, requestId, request.getAmount(), orderId, request.getTransId(), request.getRequestType(), Config.momo_SecretKey);
 		MoMoRefundRequest requestRefundMoMo = new MoMoRefundRequest(Config.momo_PartnerCode, Config.momo_AccessKey, requestId, request.getAmount(), orderId, request.getTransId(), request.getRequestType(), signature);
-			
+		
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<MoMoRefundRequest> requestRefund = new HttpEntity<MoMoRefundRequest>(requestRefundMoMo, headers);
