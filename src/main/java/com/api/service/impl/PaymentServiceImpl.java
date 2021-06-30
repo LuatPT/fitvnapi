@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.common.ResponseCheckout;
+import com.api.model.MoMoRefundRequestFromClient;
+import com.api.model.MoMoRefundResponse;
 import com.api.model.MoMoRequestFromClient;
 import com.api.model.MoMoResponse;
 import com.api.model.VNPay;
@@ -38,7 +40,12 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public ResponseCheckout saveInfoMoMoToDB(HttpServletRequest req) {
+	public String saveInfoMoMoToDB(HttpServletRequest req) {
 		return paymentRepository.saveInfoMoMoToDBMethod(req);
+	}
+
+	@Override
+	public MoMoRefundResponse getRefundMoMo(MoMoRefundRequestFromClient request) {
+		return paymentRepository.getRefundFromMoMo(request);
 	}	
 }

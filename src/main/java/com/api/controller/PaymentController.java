@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.common.ResponseCheckout;
+import com.api.model.MoMoRefundRequestFromClient;
+import com.api.model.MoMoRefundResponse;
 import com.api.model.MoMoRequestFromClient;
 import com.api.model.MoMoResponse;
 import com.api.model.VNPay;
@@ -44,8 +46,13 @@ public class PaymentController {
 		return new ResponseEntity<MoMoResponse>(responseMoMo ,HttpStatus.OK);
 	}
 	@RequestMapping(method = RequestMethod.GET, value = "/saveInfoMoMo", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseCheckout> saveInfoMoMo(HttpServletRequest request) {
-		ResponseCheckout res = paymentService.saveInfoMoMoToDB(request);
-		return new ResponseEntity<ResponseCheckout>(res,HttpStatus.OK);
+	public ResponseEntity<String> saveInfoMoMo(HttpServletRequest request) {
+		String res = paymentService.saveInfoMoMoToDB(request);
+		return new ResponseEntity<String>(res,HttpStatus.OK);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "/refundMoMo", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MoMoRefundResponse> getRefundMoMo(@RequestBody MoMoRefundRequestFromClient moMoRefundRequestFromClient, HttpServletRequest request) {
+		MoMoRefundResponse res = paymentService.getRefundMoMo(moMoRefundRequestFromClient);
+		return new ResponseEntity<MoMoRefundResponse>(res,HttpStatus.OK);
 	}
 }

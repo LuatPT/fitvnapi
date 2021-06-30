@@ -31,6 +31,9 @@ import com.api.common.Config;
 import com.api.common.ResponseCheckout;
 import com.api.entity.MoMoInfo;
 import com.api.entity.VNPayInfo;
+import com.api.model.MoMoRefundRequest;
+import com.api.model.MoMoRefundRequestFromClient;
+import com.api.model.MoMoRefundResponse;
 import com.api.model.MoMoRequest;
 import com.api.model.MoMoRequestFromClient;
 import com.api.model.MoMoResponse;
@@ -195,6 +198,8 @@ public class PaymentRepository {
 		}
 	}
 
+	
+	//=====================MoMo====================
 	public MoMoResponse getDataFromMoMoWeb(MoMoRequestFromClient moMoRequestFromClient) {
 		RestTemplate restTemplate = new RestTemplate();	
 		String requestId = String.valueOf(System.currentTimeMillis());
@@ -214,15 +219,11 @@ public class PaymentRepository {
 		return response;
 	}
 
-	public ResponseCheckout saveInfoMoMoToDBMethod(HttpServletRequest req) {
-		ResponseCheckout response = ResponseCheckout.OK;
-		System.out.println(req.getParameter("errorCode"));
-		if(!("0").equals(req.getParameter("errorCode"))) {
-			response = ResponseCheckout.NOTOK;
-		}else {
+	public String saveInfoMoMoToDBMethod(HttpServletRequest req) {
+		if(("0").equals(req.getParameter("errorCode"))){
 			saveToDBMoMo(req);
 		}
-		return response;
+		return req.getParameter("transId");
 	}
 	
 	public void saveToDBMoMo(HttpServletRequest req) {
@@ -254,5 +255,22 @@ public class PaymentRepository {
 		} finally {
 			entityManager.close();
 		}
+	}
+
+	public MoMoRefundResponse getRefundFromMoMo(MoMoRefundRequestFromClient request) {
+		
+		RestTemplate restTemplate = new RestTemplate();	
+		String requestId = String.valueOf(System.currentTimeMillis());
+		String orderId = String.valueOf(System.currentTimeMillis());
+		
+		String signature = Config.createPaymentRefundRequest(Config.momo_PartnerCode, Config.momo_AccessKey, requestId, request.getAmount(), orderId, request.getTransId(), request.getRequestType(), Config.momo_SecretKey);
+		MoMoRefundRequest requestRefundMoMo = new MoMoRefundRequest(Config.momo_PartnerCode, Config.momo_AccessKey, requestId, request.getAmount(), orderId, request.getTransId(), request.getRequestType(), signature);
+			
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<MoMoRefundRequest> requestRefund = new HttpEntity<MoMoRefundRequest>(requestRefundMoMo, headers);
+		MoMoRefundResponse response = restTemplate.postForObject(Config.momo_EndPoint, requestRefund, MoMoRefundResponse.class);
+		
+		return response;
 	}
 }

@@ -157,4 +157,24 @@ public class Config {
 		}
     	return encodeString;
     }
+ // Encode momo signature to hmac Sha256
+    public static String createPaymentRefundRequest(String partnerCode, String accessKey, String requestId, String amout, String orderId, String transId, String requestType, String secretKey) {
+    	String requestRawData = null;
+    	String encodeString = null;
+    	try {
+	    	
+    		requestRawData = new StringBuilder().append("partnerCode").append("=").append(partnerCode).append("&")
+	                .append("accessKey").append("=").append(accessKey).append("&")
+	                .append("requestId").append("=").append(requestId).append("&")
+	                .append("amount").append("=").append(amout).append("&")
+	                .append("orderId").append("=").append(orderId).append("&")
+	                .append("transId").append("=").append(transId).append("&")
+	                .append("requestType").append("=").append(requestType)
+	                .toString();
+			encodeString = Encoder.signHmacSHA256(requestRawData, secretKey);
+		} catch (InvalidKeyException | NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+    	return encodeString;
+    }
 }
