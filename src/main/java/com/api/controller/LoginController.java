@@ -35,7 +35,7 @@ import com.api.security.payload.TokenRefreshResponse;
 import com.api.service.RefreshTokenService;
 import com.api.service.UserService;
 
-@CrossOrigin(origins = "http://fitvn.herokuapp.com")
+@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000")
 @RestController
 @RequestMapping(value = "/v1")
 public class LoginController {
@@ -77,8 +77,8 @@ public class LoginController {
 		String expiryDate = formatter.format(refreshToken.getExpiryDate());
 		
 		Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken.getToken());
-		refreshTokenCookie.setHttpOnly(true);
-//		refreshTokenCookie.setSecure(true); // only allows HTTPS
+		refreshTokenCookie.setHttpOnly(true);  // only allows HTTPS
+//		refreshTokenCookie.setSecure(true);
 		response.addCookie(refreshTokenCookie);
 		
 		// create response and put jwt

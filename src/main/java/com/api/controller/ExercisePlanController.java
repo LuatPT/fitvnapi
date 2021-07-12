@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.entity.ExercisePlan;
 import com.api.service.ExercisePlanService;
 
-@CrossOrigin(origins = "http://fitvn.herokuapp.com")
+@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000")
 @RestController
 @RequestMapping(value = "/v1")
 public class ExercisePlanController {

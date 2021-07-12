@@ -20,8 +20,8 @@ import com.api.model.RstGetCaloMapDto;
 import com.api.model.RstMealPlanListDto;
 import com.api.service.MealPlanService;
 
-@CrossOrigin(origins = "http://fitvn.herokuapp.com")
 @RestController
+@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000")
 @RequestMapping(value = "/v1")
 public class MealPlanController {
 	private MealPlanService mealPlanService;
