@@ -15,7 +15,7 @@ import com.api.entity.UserInfo;
 import com.api.model.DxoGetUserInfoDto;
 import com.api.service.UserInfoService;
 
-@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000")
+@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000, https://fitvn.herokuapp.com")
 @RestController
 @RequestMapping(value = "/v1")
 public class UserInfoController {

@@ -21,7 +21,7 @@ import com.api.model.VNPay;
 import com.api.service.PaymentService;
 
 @RestController
-@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000")
+@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000, https://fitvn.herokuapp.com")
 @RequestMapping(value = "/v1")
 public class PaymentController {
 
