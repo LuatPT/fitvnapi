@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://fitvn.herokuapp.com, http://localhost:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://fitvn.herokuapp.com, http://localhost:3000, https://fitvn.herokuapp.com"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTION"));
         configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Authorization", "Content-Type", "X-Auth-Token"));
         configuration.setExposedHeaders(Arrays.asList("X-Auth-Token"));
