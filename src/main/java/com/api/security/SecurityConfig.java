@@ -64,10 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://fitvn.herokuapp.com, http://localhost:3000, https://fitvn.herokuapp.com"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTION"));
-        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Authorization", "Content-Type", "X-Auth-Token"));
-        configuration.setExposedHeaders(Arrays.asList("X-Auth-Token"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://fitvn.herokuapp.com", "http://fitvn.herokuapp.com"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("X-Auth-Token","Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -100,8 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-		.and().csrf().disable().authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
+		http.cors().and().csrf().disable().authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
 //		.antMatchers("/v1/exercises").hasAuthority(LoginRole.USER.getAuthority())
 		.anyRequest().authenticated();
 		// Thêm một lớp Filter kiểm tra jwt

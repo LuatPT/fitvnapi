@@ -35,9 +35,9 @@ import com.api.security.payload.TokenRefreshResponse;
 import com.api.service.RefreshTokenService;
 import com.api.service.UserService;
 
-@CrossOrigin(origins = "http://fitvn.herokuapp.com, http://localhost:3000, https://fitvn.herokuapp.com")
 @RestController
 @RequestMapping(value = "/v1")
+//@CrossOrigin(origins = {"https://fitvn.herokuapp.com", "http://fitvn.herokuapp.com", "http://localhost:3000"})
 public class LoginController {
 
 	private final String REFRESH_KEY = "mykeyrefresh";
