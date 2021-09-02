@@ -56,4 +56,7 @@ public class Food implements Serializable{
 	
 	@Column(name="fat")
 	private int fat;
+	
+	@Column(name="food_type_id")
+	private int foodTypeId;
 }
